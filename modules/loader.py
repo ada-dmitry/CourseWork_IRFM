@@ -1,63 +1,62 @@
-from http.client import IncompleteRead
-import socket
-from urllib.error import URLError
-from urllib.request import Request, urlopen
 import ssl
+import subprocess
 import time
+from urllib.parse import urlparse
+from urllib.request import Request, urlopen
 
 
-def _read_response_bytes(response, chunk_size: int = 64 * 1024, min_partial_bytes: int = 4096) -> bytes:
-    """Читает ответ по частям; при таймауте возвращает уже полученные байты, если их достаточно."""
-    chunks = []
-    total = 0
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "ru,en-US;q=0.9,en;q=0.8",
+}
 
-    while True:
-        try:
-            chunk = response.read(chunk_size)
-        except (TimeoutError, socket.timeout, OSError):
-            if total >= min_partial_bytes:
-                return b"".join(chunks)
-            raise
 
-        if not chunk:
-            break
-
-        chunks.append(chunk)
-        total += len(chunk)
-
-    return b"".join(chunks)
-
-def download_html(url: str, retries: int = 5, timeout: float = 40.0) -> str:
-    """Загружает HTML с повторными попытками при временных сетевых ошибках."""
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
-
-    req = Request(
+def download_with_curl(url: str, timeout: float) -> str:
+    command = [
+        "curl",
+        "-L",
+        "--compressed",
+        "--silent",
+        "--show-error",
+        "--max-time",
+        str(int(timeout)),
+        "-A",
+        HEADERS["User-Agent"],
         url,
-        headers={
-            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Encoding": "identity",
-            "Accept-Language": "ru,en-US;q=0.9,en;q=0.8",
-            "Connection": "close",
-        },
-    )
+    ]
+    result = subprocess.run(command, capture_output=True, check=False)
+
+    if result.stdout:
+        return result.stdout.decode("utf-8", errors="ignore")
+
+    message = result.stderr.decode("utf-8", errors="ignore").strip()
+    raise RuntimeError(message or f"curl finished with code {result.returncode}")
+
+
+def download_with_urllib(url: str, timeout: float) -> str:
+    context = ssl.create_default_context()
+    context.check_hostname = False
+    context.verify_mode = ssl.CERT_NONE
+
+    request = Request(url, headers=HEADERS)
+    with urlopen(request, context=context, timeout=timeout) as response:
+        return response.read().decode("utf-8", errors="ignore")
+
+
+def download_html(url: str, retries: int = 3, timeout: float = 30.0) -> str:
+    """Загружает HTML. Для ConsultantPlus сначала пробует curl, для остальных сайтов urllib."""
+    is_consultant = urlparse(url).netloc.endswith("consultant.ru")
+    loaders = [download_with_curl, download_with_urllib] if is_consultant else [download_with_urllib, download_with_curl]
     last_error = None
 
-    for attempt in range(retries):
-        try:
-            with urlopen(req, context=ctx, timeout=timeout) as response:
-                raw = _read_response_bytes(response)
-                return raw.decode("utf-8", errors="ignore")
-        except IncompleteRead as exc:
-            if exc.partial:
-                return exc.partial.decode("utf-8", errors="ignore")
-            last_error = exc
-        except (TimeoutError, socket.timeout, URLError, OSError) as exc:
-            last_error = exc
-            if attempt == retries - 1:
-                break
-            time.sleep(0.5 * (2 ** attempt))
+    for _ in range(retries):
+        for loader in loaders:
+            try:
+                return loader(url, timeout)
+            except Exception as exc:
+                last_error = exc
 
-    raise RuntimeError(f"Failed to download URL after {retries} attempts: {url}") from last_error
+        time.sleep(0.5)
+
+    raise RuntimeError(f"Failed to download URL: {url}") from last_error

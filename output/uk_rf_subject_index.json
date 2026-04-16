@@ -1,0 +1,702 @@
+[
+  {
+    "word": "срок",
+    "count": 3342,
+    "line": 34,
+    "char": 151,
+    "source_word": "срок"
+  },
+  {
+    "word": "размер",
+    "count": 2024,
+    "line": 136,
+    "char": 25,
+    "source_word": "размере"
+  },
+  {
+    "word": "лишение",
+    "count": 1843,
+    "line": 31,
+    "char": 183,
+    "source_word": "лишения"
+  },
+  {
+    "word": "свобода",
+    "count": 1563,
+    "line": 3,
+    "char": 53,
+    "source_word": "свобод"
+  },
+  {
+    "word": "определенный",
+    "count": 1399,
+    "line": 120,
+    "char": 24,
+    "source_word": "определенные"
+  },
+  {
+    "word": "иной",
+    "count": 1267,
+    "line": 4,
+    "char": 241,
+    "source_word": "иные"
+  },
+  {
+    "word": "лицо",
+    "count": 1224,
+    "line": 7,
+    "char": 1,
+    "source_word": "Лица"
+  },
+  {
+    "word": "наказываться",
+    "count": 1084,
+    "line": 493,
+    "char": 1,
+    "source_word": "наказывается"
+  },
+  {
+    "word": "работа",
+    "count": 1080,
+    "line": 122,
+    "char": 14,
+    "source_word": "работы"
+  },
+  {
+    "word": "осудить",
+    "count": 973,
+    "line": 25,
+    "char": 746,
+    "source_word": "осуждены"
+  },
+  {
+    "word": "таковой",
+    "count": 942,
+    "line": 409,
+    "char": 174,
+    "source_word": "таковых"
+  },
+  {
+    "word": "штраф",
+    "count": 899,
+    "line": 119,
+    "char": 1,
+    "source_word": "штраф"
+  },
+  {
+    "word": "период",
+    "count": 873,
+    "line": 136,
+    "char": 135,
+    "source_word": "период"
+  },
+  {
+    "word": "доход",
+    "count": 864,
+    "line": 136,
+    "char": 113,
+    "source_word": "дохода"
+  },
+  {
+    "word": "деятельность",
+    "count": 824,
+    "line": 53,
+    "char": 752,
+    "source_word": "деятельности"
+  },
+  {
+    "word": "заработный",
+    "count": 808,
+    "line": 136,
+    "char": 86,
+    "source_word": "заработной"
+  },
+  {
+    "word": "плата",
+    "count": 808,
+    "line": 136,
+    "char": 97,
+    "source_word": "платы"
+  },
+  {
+    "word": "право",
+    "count": 797,
+    "line": 2,
+    "char": 118,
+    "source_word": "права"
+  },
+  {
+    "word": "должность",
+    "count": 704,
+    "line": 120,
+    "char": 37,
+    "source_word": "должности"
+  },
+  {
+    "word": "преступление",
+    "count": 696,
+    "line": 3,
+    "char": 309,
+    "source_word": "преступлений"
+  },
+  {
+    "word": "занимать",
+    "count": 694,
+    "line": 120,
+    "char": 15,
+    "source_word": "занимать"
+  },
+  {
+    "word": "заниматься",
+    "count": 682,
+    "line": 120,
+    "char": 51,
+    "source_word": "заниматься"
+  },
+  {
+    "word": "принудительный",
+    "count": 659,
+    "line": 56,
+    "char": 135,
+    "source_word": "принудительные"
+  },
+  {
+    "word": "деяние",
+    "count": 657,
+    "line": 4,
+    "char": 174,
+    "source_word": "деяния"
+  },
+  {
+    "word": "совершенный",
+    "count": 578,
+    "line": 20,
+    "char": 15,
+    "source_word": "совершенные"
+  },
+  {
+    "word": "предусмотренный",
+    "count": 474,
+    "line": 14,
+    "char": 113,
+    "source_word": "предусмотренного"
+  },
+  {
+    "word": "ограничение",
+    "count": 447,
+    "line": 116,
+    "char": 223,
+    "source_word": "ограничении"
+  },
+  {
+    "word": "группа",
+    "count": 410,
+    "line": 85,
+    "char": 144,
+    "source_word": "группу"
+  },
+  {
+    "word": "наказание",
+    "count": 406,
+    "line": 4,
+    "char": 229,
+    "source_word": "наказаний"
+  },
+  {
+    "word": "средство",
+    "count": 353,
+    "line": 53,
+    "char": 541,
+    "source_word": "средством"
+  },
+  {
+    "word": "крупный",
+    "count": 338,
+    "line": 848,
+    "char": 122,
+    "source_word": "крупных"
+  },
+  {
+    "word": "совершение",
+    "count": 329,
+    "line": 4,
+    "char": 283,
+    "source_word": "совершение"
+  },
+  {
+    "word": "обязательный",
+    "count": 261,
+    "line": 114,
+    "char": 116,
+    "source_word": "обязательных"
+  },
+  {
+    "word": "организация",
+    "count": 250,
+    "line": 53,
+    "char": 870,
+    "source_word": "организацию"
+  },
+  {
+    "word": "повлечь",
+    "count": 248,
+    "line": 546,
+    "char": 68,
+    "source_word": "повлекшие"
+  },
+  {
+    "word": "тяжкий",
+    "count": 237,
+    "line": 30,
+    "char": 185,
+    "source_word": "тяжкие"
+  },
+  {
+    "word": "использование",
+    "count": 234,
+    "line": 84,
+    "char": 221,
+    "source_word": "использования"
+  },
+  {
+    "word": "исправительный",
+    "count": 229,
+    "line": 123,
+    "char": 1,
+    "source_word": "исправительные"
+  },
+  {
+    "word": "совершить",
+    "count": 228,
+    "line": 7,
+    "char": 7,
+    "source_word": "совершившие"
+  },
+  {
+    "word": "отношение",
+    "count": 213,
+    "line": 7,
+    "char": 213,
+    "source_word": "отношения"
+  },
+  {
+    "word": "действие",
+    "count": 206,
+    "line": 8,
+    "char": 74,
+    "source_word": "действия"
+  },
+  {
+    "word": "цель",
+    "count": 204,
+    "line": 13,
+    "char": 121,
+    "source_word": "целью"
+  },
+  {
+    "word": "государственный",
+    "count": 188,
+    "line": 53,
+    "char": 2031,
+    "source_word": "государственного"
+  },
+  {
+    "word": "равно",
+    "count": 187,
+    "line": 85,
+    "char": 107,
+    "source_word": "равно"
+  },
+  {
+    "word": "сумма",
+    "count": 185,
+    "line": 136,
+    "char": 229,
+    "source_word": "сумме"
+  },
+  {
+    "word": "применение",
+    "count": 184,
+    "line": 6,
+    "char": 1,
+    "source_word": "Применение"
+  },
+  {
+    "word": "предусмотреть",
+    "count": 184,
+    "line": 18,
+    "char": 133,
+    "source_word": "предусмотренных"
+  },
+  {
+    "word": "организовать",
+    "count": 183,
+    "line": 85,
+    "char": 32,
+    "source_word": "организовавшее"
+  },
+  {
+    "word": "уголовный",
+    "count": 180,
+    "line": 1,
+    "char": 1,
+    "source_word": "Уголовное"
+  },
+  {
+    "word": "особо",
+    "count": 178,
+    "line": 30,
+    "char": 207,
+    "source_word": "особо"
+  },
+  {
+    "word": "суд",
+    "count": 175,
+    "line": 23,
+    "char": 349,
+    "source_word": "суда"
+  },
+  {
+    "word": "предварительный",
+    "count": 165,
+    "line": 93,
+    "char": 124,
+    "source_word": "предварительного"
+  },
+  {
+    "word": "военный",
+    "count": 163,
+    "line": 21,
+    "char": 401,
+    "source_word": "военном"
+  },
+  {
+    "word": "незаконный",
+    "count": 162,
+    "line": 53,
+    "char": 1199,
+    "source_word": "незаконном"
+  },
+  {
+    "word": "случай",
+    "count": 161,
+    "line": 22,
+    "char": 141,
+    "source_word": "случае"
+  },
+  {
+    "word": "сговор",
+    "count": 161,
+    "line": 74,
+    "char": 174,
+    "source_word": "сговор"
+  },
+  {
+    "word": "примечание",
+    "count": 159,
+    "line": 296,
+    "char": 1,
+    "source_word": "Примечание"
+  },
+  {
+    "word": "ответственность",
+    "count": 156,
+    "line": 1,
+    "char": 122,
+    "source_word": "ответственность"
+  },
+  {
+    "word": "арест",
+    "count": 156,
+    "line": 127,
+    "char": 1,
+    "source_word": "арест"
+  },
+  {
+    "word": "причинение",
+    "count": 151,
+    "line": 9,
+    "char": 71,
+    "source_word": "причинение"
+  },
+  {
+    "word": "неосторожность",
+    "count": 143,
+    "line": 60,
+    "char": 78,
+    "source_word": "неосторожности"
+  },
+  {
+    "word": "ущерб",
+    "count": 142,
+    "line": 204,
+    "char": 135,
+    "source_word": "ущерба"
+  },
+  {
+    "word": "признаваться",
+    "count": 141,
+    "line": 4,
+    "char": 181,
+    "source_word": "признаются"
+  },
+  {
+    "word": "заведомо",
+    "count": 141,
+    "line": 53,
+    "char": 1130,
+    "source_word": "заведомо"
+  },
+  {
+    "word": "другой",
+    "count": 138,
+    "line": 7,
+    "char": 297,
+    "source_word": "других"
+  },
+  {
+    "word": "несовершеннолетний",
+    "count": 138,
+    "line": 54,
+    "char": 6,
+    "source_word": "несовершеннолетний"
+  },
+  {
+    "word": "вред",
+    "count": 137,
+    "line": 9,
+    "char": 82,
+    "source_word": "вреда"
+  },
+  {
+    "word": "положение",
+    "count": 134,
+    "line": 7,
+    "char": 184,
+    "source_word": "положения"
+  },
+  {
+    "word": "орган",
+    "count": 133,
+    "line": 80,
+    "char": 135,
+    "source_word": "органам"
+  },
+  {
+    "word": "имущество",
+    "count": 131,
+    "line": 53,
+    "char": 621,
+    "source_word": "имущества"
+  },
+  {
+    "word": "вещество",
+    "count": 131,
+    "line": 53,
+    "char": 1607,
+    "source_word": "веществ"
+  },
+  {
+    "word": "вид",
+    "count": 127,
+    "line": 4,
+    "char": 224,
+    "source_word": "виды"
+  },
+  {
+    "word": "служба",
+    "count": 126,
+    "line": 124,
+    "char": 24,
+    "source_word": "службе"
+  },
+  {
+    "word": "информация",
+    "count": 125,
+    "line": 87,
+    "char": 107,
+    "source_word": "информации"
+  },
+  {
+    "word": "здоровье",
+    "count": 124,
+    "line": 53,
+    "char": 179,
+    "source_word": "здоровью"
+  },
+  {
+    "word": "указанный",
+    "count": 118,
+    "line": 35,
+    "char": 337,
+    "source_word": "указанного"
+  },
+  {
+    "word": "нарушение",
+    "count": 118,
+    "line": 201,
+    "char": 29,
+    "source_word": "нарушении"
+  },
+  {
+    "word": "сеть",
+    "count": 117,
+    "line": 230,
+    "char": 147,
+    "source_word": "сетях"
+  },
+  {
+    "word": "человек",
+    "count": 116,
+    "line": 3,
+    "char": 60,
+    "source_word": "человека"
+  },
+  {
+    "word": "последствие",
+    "count": 112,
+    "line": 5,
+    "char": 72,
+    "source_word": "последствия"
+  },
+  {
+    "word": "служебный",
+    "count": 110,
+    "line": 104,
+    "char": 139,
+    "source_word": "служебного"
+  },
+  {
+    "word": "административный",
+    "count": 107,
+    "line": 298,
+    "char": 288,
+    "source_word": "административной"
+  },
+  {
+    "word": "гражданин",
+    "count": 106,
+    "line": 3,
+    "char": 71,
+    "source_word": "гражданина"
+  },
+  {
+    "word": "подкуп",
+    "count": 106,
+    "line": 86,
+    "char": 97,
+    "source_word": "подкупа"
+  },
+  {
+    "word": "превышать",
+    "count": 105,
+    "line": 31,
+    "char": 164,
+    "source_word": "превышает"
+  },
+  {
+    "word": "денежный",
+    "count": 105,
+    "line": 135,
+    "char": 12,
+    "source_word": "денежное"
+  },
+  {
+    "word": "смерть",
+    "count": 104,
+    "line": 492,
+    "char": 41,
+    "source_word": "смерти"
+  },
+  {
+    "word": "законодательство",
+    "count": 101,
+    "line": 1,
+    "char": 11,
+    "source_word": "законодательство"
+  },
+  {
+    "word": "число",
+    "count": 101,
+    "line": 17,
+    "char": 274,
+    "source_word": "числе"
+  },
+  {
+    "word": "насилие",
+    "count": 101,
+    "line": 101,
+    "char": 295,
+    "source_word": "насилием"
+  },
+  {
+    "word": "иностранный",
+    "count": 98,
+    "line": 22,
+    "char": 68,
+    "source_word": "иностранных"
+  },
+  {
+    "word": "характер",
+    "count": 94,
+    "line": 4,
+    "char": 270,
+    "source_word": "характера"
+  },
+  {
+    "word": "соответствие",
+    "count": 92,
+    "line": 22,
+    "char": 234,
+    "source_word": "соответствии"
+  },
+  {
+    "word": "отбывание",
+    "count": 92,
+    "line": 27,
+    "char": 246,
+    "source_word": "отбывания"
+  },
+  {
+    "word": "угроза",
+    "count": 92,
+    "line": 28,
+    "char": 109,
+    "source_word": "угрозой"
+  },
+  {
+    "word": "возраст",
+    "count": 89,
+    "line": 48,
+    "char": 48,
+    "source_word": "возрасте"
+  },
+  {
+    "word": "медицинский",
+    "count": 87,
+    "line": 56,
+    "char": 155,
+    "source_word": "медицинского"
+  },
+  {
+    "word": "должностной",
+    "count": 86,
+    "line": 7,
+    "char": 171,
+    "source_word": "должностного"
+  },
+  {
+    "word": "условие",
+    "count": 86,
+    "line": 35,
+    "char": 296,
+    "source_word": "условии"
+  },
+  {
+    "word": "оружие",
+    "count": 86,
+    "line": 53,
+    "char": 1764,
+    "source_word": "оружия"
+  }
+]
