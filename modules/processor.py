@@ -1,15 +1,11 @@
-from collections import Counter
 from functools import lru_cache
-import csv
-import json
-from pathlib import Path
 import re
 
 
 WORD_RE = re.compile(r"[А-Яа-яЁё]+(?:-[А-Яа-яЁё]+)?")
 DIGIT_BEFORE_WORD_RE = re.compile(r"\d[\d\s.,-]*$")
 
-STOP_WORDS = set(
+STOP_WORDS = set( # Стоп-слова (выведены вручную)
     """
     а без более бы бывший был была были было быть в во весь вместе вне вновь все всего
     всей всем всеми всех вследствие вы где да для до его ее если есть же за из или им
@@ -21,7 +17,7 @@ STOP_WORDS = set(
     """.split()
 )
 
-NUMERAL_WORDS = set(
+NUMERAL_WORDS = set( # Числительные (выведены вручную)
     """
     ноль один два три четыре пять шесть семь восемь девять десять одиннадцать
     двенадцать тринадцать четырнадцать пятнадцать шестнадцать семнадцать
@@ -32,20 +28,20 @@ NUMERAL_WORDS = set(
     """.split()
 )
 
-NUMBER_UNITS = set(
+NUMBER_UNITS = set( # Слова-спутники числительных (тоже малоинформативны)
     """
     год месяц неделя день сутки час минута рубль копейка процент метр километр грамм
     килограмм литр
     """.split()
 )
 
-PROPER_WORDS = set(
+PROPER_WORDS = set( # Имена собственные
     """
     ельцин интернет конституция кремль москва россия рф снг ссср
     """.split()
 )
 
-PROPER_PHRASES = [
+PROPER_PHRASES = [ # Имена собственные в формате словосочетаний
     phrase.split()
     for phrase in [
         "арбитражный процессуальный кодекс",
@@ -82,11 +78,17 @@ try:
 except ImportError:
     MORPH = None
 else:
-    MORPH = pymorphy3.MorphAnalyzer()
+    MORPH = pymorphy3.MorphAnalyzer() # Почему не SpaCy? - потому что использовать NLP для простой лемматизации - это пушкой по воробьям. А PyMorphy - это просто большой словарь (и все равно меньше, чем модель), который анализирует русскую морфологию - по-умному - конечный автомат по словарю.
 
 
 @lru_cache(maxsize=100_000)
 def parse_word(word: str):
+    """Возвращает (лемма, тег) для слова. Кешируем, чтобы не прогонять одно и то же через модуль постоянно.
+
+    «ё» → «е» для единообразия леммы в словаре и при сравнении.
+    Если pymorphy3 не установлен, тег пустой, лемма = lower().
+    Берём первый (наиболее вероятный) разбор pymorphy3.
+    """
     w = word.lower().replace("ё", "е")
     if MORPH is None:
         return w, ""
@@ -101,22 +103,31 @@ def parse_word(word: str):
 
 @lru_cache(maxsize=10_000)
 def _tag_parts(tag: str) -> frozenset[str]:
+    """Разбивает строку тега pymorphy3 на множество граммем для быстрого поиска."""
     return frozenset(re.split(r"[, ]+", tag))
 
 
 def has_tag(tag: str, names: set[str]) -> bool:
+    """Проверяет, содержит ли тег хотя бы одну из граммем из names."""
     return bool(_tag_parts(tag) & names)
 
 
 def is_numeral(lemma: str, tag: str) -> bool:
+    """True если слово — числительное: по словарю NUMERAL_WORDS или тегу NUMR/Anum."""
     return lemma in NUMERAL_WORDS or has_tag(tag, {"NUMR", "Anum"})
 
 
 def is_proper_name(lemma: str, tag: str) -> bool:
+    """True если слово — имя собственное: по словарю PROPER_WORDS или тегу Name/Surn/Patr/Geox/Orgn."""
     return lemma in PROPER_WORDS or has_tag(tag, {"Name", "Surn", "Patr", "Geox", "Orgn"})
 
 
 def find_phrase_positions(lemmas: list[str]) -> set[int]:
+    """Возвращает индексы лемм, входящих в устойчивые фразы-собственные из PROPER_PHRASES.
+
+    Скользящим окном ищет каждую фразу в списке лемм и помечает все её позиции,
+    чтобы is_bad_word мог отфильтровать их целиком.
+    """
     positions = set()
 
     for phrase in PROPER_PHRASES:
@@ -129,6 +140,11 @@ def find_phrase_positions(lemmas: list[str]) -> set[int]:
 
 
 def words_from_line(line: str):
+    """Разбирает строку на слова и возвращает список dict с морфологическими данными.
+
+    Каждый dict: source — оригинальное слово, lemma, tag, char — 1-based позиция
+    в строке, after_digit — стоит ли перед словом число (для фильтрации единиц измерения).
+    """
     words = []
 
     for match in WORD_RE.finditer(line):
@@ -149,6 +165,13 @@ def words_from_line(line: str):
 
 
 def is_bad_word(word: dict, phrase_positions: set[int], index: int, after_number: bool) -> bool:
+    """Возвращает True если слово нужно отфильтровать.
+
+    Причины отсева: длина ≤ 2, стоп-слово, часть устойчивой фразы-собственной,
+    имя собственное, числительное, единица измерения после числа.
+    after_number — признак того, что предыдущее значимое слово было числительным
+    (передаётся из good_words_from_line для цепочек вида «пять лет»).
+    """
     lemma = word["lemma"]
     tag = word["tag"]
 
@@ -165,6 +188,12 @@ def is_bad_word(word: dict, phrase_positions: set[int], index: int, after_number
 
 
 def good_words_from_line(line: str):
+    """Генератор: выдаёт только «хорошие» слова строки после всех фильтров.
+
+    Сначала вычисляет позиции фраз-собственных, затем идёт по словам,
+    отслеживая флаг after_number — он сбрасывается на каждом не-числительном,
+    чтобы точно отловить единицы измерения, стоящие сразу после числа.
+    """
     words = words_from_line(line)
     phrase_positions = find_phrase_positions([word["lemma"] for word in words])
     after_number = False
@@ -179,13 +208,11 @@ def good_words_from_line(line: str):
             yield word
 
 
-def prepared_terms(text: str):
-    for line_number, line in enumerate(text.splitlines(), start=1):
-        for word in good_words_from_line(line):
-            yield word["lemma"], line_number, word["char"], word["source"]
-
-
 def prepare_text(text: str) -> str:
+    """Возвращает отфильтрованный текст: каждая строка — леммы через пробел.
+
+    Пустые строки (все слова отсеяны) пропускаются.
+    """
     lines = []
 
     for line in text.splitlines():
@@ -194,48 +221,3 @@ def prepare_text(text: str) -> str:
             lines.append(" ".join(lemmas))
 
     return "\n".join(lines)
-
-
-def build_subject_index(text: str, top_n: int = 100) -> list[dict]:
-    counts = Counter()
-    first_place = {}
-
-    for lemma, line, char, source in prepared_terms(text):
-        counts[lemma] += 1
-        first_place.setdefault(lemma, (line, char, source))
-
-    result = []
-    for lemma, count in counts.most_common(top_n):
-        line, char, source = first_place[lemma]
-        result.append(
-            {
-                "word": lemma,
-                "count": count,
-                "line": line,
-                "char": char,
-                "source_word": source,
-            }
-        )
-
-    return result
-
-
-def write_subject_index_csv(entries: list[dict], path: Path) -> None:
-    with path.open("w", encoding="utf-8", newline="") as file:
-        writer = csv.writer(file, delimiter=";")
-        writer.writerow(["word", "count", "line", "char", "source_word"])
-        for entry in entries:
-            writer.writerow(
-                [
-                    entry["word"],
-                    entry["count"],
-                    entry["line"],
-                    entry["char"],
-                    entry["source_word"],
-                ]
-            )
-
-
-def write_subject_index_json(entries: list[dict], path: Path) -> None:
-    with path.open("w", encoding="utf-8") as file:
-        json.dump(entries, file, ensure_ascii=False, indent=2)

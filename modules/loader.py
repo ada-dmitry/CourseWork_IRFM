@@ -1,7 +1,6 @@
 import ssl
 import subprocess
 import time
-from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
 
@@ -13,6 +12,13 @@ HEADERS = {
 
 
 def download_with_curl(url: str, timeout: float) -> str:
+    """
+    Загружает URL через системный curl с поддержкой gzip и редиректов.
+
+    Флаги: -L следует редиректам, --compressed принимает gzip/br,
+    --silent подавляет прогресс, --show-error выводит ошибки в stderr.
+    Если stdout пуст (curl вернул ошибку), бросает RuntimeError со stderr.
+    """
     command = [
         "curl",
         "-L",
@@ -35,6 +41,9 @@ def download_with_curl(url: str, timeout: float) -> str:
 
 
 def download_with_urllib(url: str, timeout: float) -> str:
+    """
+    Загружает URL через стандартный urllib с отключённой проверкой SSL-сертификата (иначе может лечь).
+    """
     context = ssl.create_default_context()
     context.check_hostname = False
     context.verify_mode = ssl.CERT_NONE
@@ -45,9 +54,13 @@ def download_with_urllib(url: str, timeout: float) -> str:
 
 
 def download_html(url: str, retries: int = 3, timeout: float = 30.0) -> str:
-    """Загружает HTML. Для ConsultantPlus сначала пробует curl, для остальных сайтов urllib."""
-    is_consultant = urlparse(url).netloc.endswith("consultant.ru")
-    loaders = [download_with_curl, download_with_urllib] if is_consultant else [download_with_urllib, download_with_curl]
+    """Загружает HTML-страницу с retry-логикой.
+
+    Порядок загрузчиков: curl → urllib (curl обходит часть защит consultant.ru).
+    На каждой итерации retry пробует оба; пауза 0.5 с между попытками.
+    Если все попытки исчерпаны — бросает RuntimeError с причиной последней ошибки.
+    """
+    loaders = [download_with_curl, download_with_urllib]
     last_error = None
 
     for _ in range(retries):
