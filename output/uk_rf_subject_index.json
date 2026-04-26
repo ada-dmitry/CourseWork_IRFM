@@ -1,28 +1,28 @@
 [
   {
     "word": "срок",
-    "count": 3342,
+    "count": 3345,
     "line": 34,
     "char": 151,
     "source_word": "срок"
   },
   {
     "word": "размер",
-    "count": 2024,
+    "count": 2026,
     "line": 136,
     "char": 25,
     "source_word": "размере"
   },
   {
     "word": "лишение",
-    "count": 1843,
+    "count": 1844,
     "line": 31,
     "char": 183,
     "source_word": "лишения"
   },
   {
     "word": "свобода",
-    "count": 1563,
+    "count": 1564,
     "line": 3,
     "char": 53,
     "source_word": "свобод"
@@ -36,35 +36,35 @@
   },
   {
     "word": "иной",
-    "count": 1267,
+    "count": 1269,
     "line": 4,
     "char": 241,
     "source_word": "иные"
   },
   {
     "word": "лицо",
-    "count": 1224,
+    "count": 1225,
     "line": 7,
     "char": 1,
     "source_word": "Лица"
   },
   {
     "word": "наказываться",
-    "count": 1084,
+    "count": 1085,
     "line": 493,
     "char": 1,
     "source_word": "наказывается"
   },
   {
     "word": "работа",
-    "count": 1080,
+    "count": 1082,
     "line": 122,
     "char": 14,
     "source_word": "работы"
   },
   {
     "word": "осудить",
-    "count": 973,
+    "count": 974,
     "line": 25,
     "char": 746,
     "source_word": "осуждены"
@@ -78,21 +78,21 @@
   },
   {
     "word": "штраф",
-    "count": 899,
+    "count": 900,
     "line": 119,
     "char": 1,
     "source_word": "штраф"
   },
   {
     "word": "период",
-    "count": 873,
+    "count": 874,
     "line": 136,
     "char": 135,
     "source_word": "период"
   },
   {
     "word": "доход",
-    "count": 864,
+    "count": 865,
     "line": 136,
     "char": 113,
     "source_word": "дохода"
@@ -106,14 +106,14 @@
   },
   {
     "word": "заработный",
-    "count": 808,
+    "count": 809,
     "line": 136,
     "char": 86,
     "source_word": "заработной"
   },
   {
     "word": "плата",
-    "count": 808,
+    "count": 809,
     "line": 136,
     "char": 97,
     "source_word": "платы"
@@ -134,7 +134,7 @@
   },
   {
     "word": "преступление",
-    "count": 696,
+    "count": 699,
     "line": 3,
     "char": 309,
     "source_word": "преступлений"
@@ -155,7 +155,7 @@
   },
   {
     "word": "принудительный",
-    "count": 659,
+    "count": 660,
     "line": 56,
     "char": 135,
     "source_word": "принудительные"
@@ -176,7 +176,7 @@
   },
   {
     "word": "предусмотренный",
-    "count": 474,
+    "count": 475,
     "line": 14,
     "char": 113,
     "source_word": "предусмотренного"
@@ -225,7 +225,7 @@
   },
   {
     "word": "обязательный",
-    "count": 261,
+    "count": 262,
     "line": 114,
     "char": 116,
     "source_word": "обязательных"
@@ -259,18 +259,18 @@
     "source_word": "использования"
   },
   {
+    "word": "совершить",
+    "count": 229,
+    "line": 7,
+    "char": 7,
+    "source_word": "совершившие"
+  },
+  {
     "word": "исправительный",
     "count": 229,
     "line": 123,
     "char": 1,
     "source_word": "исправительные"
-  },
-  {
-    "word": "совершить",
-    "count": 228,
-    "line": 7,
-    "char": 7,
-    "source_word": "совершившие"
   },
   {
     "word": "отношение",
@@ -281,14 +281,14 @@
   },
   {
     "word": "действие",
-    "count": 206,
+    "count": 207,
     "line": 8,
     "char": 74,
     "source_word": "действия"
   },
   {
     "word": "цель",
-    "count": 204,
+    "count": 205,
     "line": 13,
     "char": 121,
     "source_word": "целью"
@@ -337,7 +337,7 @@
   },
   {
     "word": "уголовный",
-    "count": 180,
+    "count": 181,
     "line": 1,
     "char": 1,
     "source_word": "Уголовное"
@@ -393,14 +393,14 @@
   },
   {
     "word": "примечание",
-    "count": 159,
+    "count": 160,
     "line": 296,
     "char": 1,
     "source_word": "Примечание"
   },
   {
     "word": "ответственность",
-    "count": 156,
+    "count": 157,
     "line": 1,
     "char": 122,
     "source_word": "ответственность"
@@ -414,7 +414,7 @@
   },
   {
     "word": "причинение",
-    "count": 151,
+    "count": 150,
     "line": 9,
     "char": 71,
     "source_word": "причинение"
@@ -428,7 +428,7 @@
   },
   {
     "word": "ущерб",
-    "count": 142,
+    "count": 143,
     "line": 204,
     "char": 135,
     "source_word": "ущерба"
@@ -449,7 +449,7 @@
   },
   {
     "word": "другой",
-    "count": 138,
+    "count": 139,
     "line": 7,
     "char": 297,
     "source_word": "других"
@@ -463,7 +463,7 @@
   },
   {
     "word": "вред",
-    "count": 137,
+    "count": 135,
     "line": 9,
     "char": 82,
     "source_word": "вреда"
@@ -504,18 +504,18 @@
     "source_word": "виды"
   },
   {
+    "word": "информация",
+    "count": 127,
+    "line": 87,
+    "char": 107,
+    "source_word": "информации"
+  },
+  {
     "word": "служба",
     "count": 126,
     "line": 124,
     "char": 24,
     "source_word": "службе"
-  },
-  {
-    "word": "информация",
-    "count": 125,
-    "line": 87,
-    "char": 107,
-    "source_word": "информации"
   },
   {
     "word": "здоровье",
@@ -609,18 +609,18 @@
     "source_word": "смерти"
   },
   {
+    "word": "число",
+    "count": 102,
+    "line": 17,
+    "char": 274,
+    "source_word": "числе"
+  },
+  {
     "word": "законодательство",
     "count": 101,
     "line": 1,
     "char": 11,
     "source_word": "законодательство"
-  },
-  {
-    "word": "число",
-    "count": 101,
-    "line": 17,
-    "char": 274,
-    "source_word": "числе"
   },
   {
     "word": "насилие",

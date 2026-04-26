@@ -85,25 +85,27 @@ else:
     MORPH = pymorphy3.MorphAnalyzer()
 
 
-def normalize(word: str) -> str:
-    return word.lower().replace("ё", "е")
-
-
 @lru_cache(maxsize=100_000)
 def parse_word(word: str):
+    w = word.lower().replace("ё", "е")
     if MORPH is None:
-        return normalize(word), ""
+        return w, ""
 
-    parsed = MORPH.parse(normalize(word))
+    parsed = MORPH.parse(w)
     if not parsed:
-        return normalize(word), ""
+        return w, ""
 
     best = parsed[0]
-    return normalize(best.normal_form), str(best.tag)
+    return best.normal_form.lower().replace("ё", "е"), str(best.tag)
+
+
+@lru_cache(maxsize=10_000)
+def _tag_parts(tag: str) -> frozenset[str]:
+    return frozenset(re.split(r"[, ]+", tag))
 
 
 def has_tag(tag: str, names: set[str]) -> bool:
-    return bool(set(re.split(r"[, ]+", tag)) & names)
+    return bool(_tag_parts(tag) & names)
 
 
 def is_numeral(lemma: str, tag: str) -> bool:

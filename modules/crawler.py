@@ -41,7 +41,7 @@ def download_document_page(url: str, allow_partial: bool = False) -> str:
             time.sleep(0.5)
             continue
 
-        if allow_partial or "</html>" in page_html.lower():
+        if allow_partial or "</html>" in page_html[-100:].lower():
             return page_html
 
         last_html = page_html
@@ -65,22 +65,19 @@ def main_content(tree):
     return nodes[0] if nodes else None
 
 
-def article_title(page_html: str) -> str:
-    tree = html.fromstring(page_html)
+def article_title(tree) -> str:
     content = main_content(tree)
     if content is None:
         return ""
 
     h1 = content.xpath(".//h1")
-    if h1 and clean_text(h1[0].text_content()):
-        return clean_text(h1[0].text_content())
+    if h1:
+        text = clean_text(h1[0].text_content())
+        if text:
+            return text
 
     styles = content.xpath(".//div[contains(concat(' ', normalize-space(@class), ' '), ' doc-style ')]")
     return clean_text(styles[0].text_content()) if styles else ""
-
-
-def is_article_page(page_html: str) -> bool:
-    return bool(ARTICLE_RE.match(article_title(page_html)))
 
 
 def service_line(line: str) -> bool:
@@ -90,7 +87,7 @@ def service_line(line: str) -> bool:
         return True
     if low.startswith("(част") and ("в ред." in low or "введен" in low):
         return True
-    if "федеральн" in low and any(word in low for word in ("ред.", "введен", "утратил", "утратила")):
+    if "федеральн" in low and any(word in low for word in ("ред.", "введен", "утратил")):
         return True
     if low in {"президент", "российской федерации", "б.ельцин", "москва, кремль"}:
         return True
@@ -102,8 +99,7 @@ def service_line(line: str) -> bool:
     return False
 
 
-def extract_page_text(page_html: str, url: str = "") -> str:
-    tree = html.fromstring(page_html)
+def extract_page_text(tree) -> str:
     content = main_content(tree)
     if content is None:
         return ""
@@ -125,8 +121,7 @@ def extract_page_text(page_html: str, url: str = "") -> str:
     return "\n".join(lines)
 
 
-def extract_article_urls(page_html: str, base_url: str) -> list[str]:
-    tree = html.fromstring(page_html)
+def extract_article_urls(tree, base_url: str) -> list[str]:
     prefix = document_prefix(base_url)
     result = []
 
@@ -139,8 +134,7 @@ def extract_article_urls(page_html: str, base_url: str) -> list[str]:
     return result
 
 
-def extract_next_document_url(page_html: str, base_url: str) -> str | None:
-    tree = html.fromstring(page_html)
+def extract_next_document_url(tree, base_url: str) -> str | None:
     prefix = document_prefix(base_url)
     links = tree.xpath("//a[contains(concat(' ', normalize-space(@class), ' '), ' pages__right ')][@href]")
     if not links:
@@ -175,7 +169,7 @@ def crawl_document(start_url: str = START_URL, max_pages: int = 800) -> list[dic
 
     try:
         start_html = download_document_page(start_url, allow_partial=True)
-        add_known_urls(known_urls, extract_article_urls(start_html, start_url))
+        add_known_urls(known_urls, extract_article_urls(html.fromstring(start_html), start_url))
         current_url = known_urls[0] if known_urls else FIRST_ARTICLE_URL
     except RuntimeError as exc:
         print(f"[crawler] start page is unavailable: {exc}")
@@ -191,23 +185,21 @@ def crawl_document(start_url: str = START_URL, max_pages: int = 800) -> list[dic
             print(f"[crawler] skip page {current_url}: {exc}")
             break
 
-        add_known_urls(known_urls, extract_article_urls(page_html, current_url))
+        tree = html.fromstring(page_html)
+        title = article_title(tree)
+        article_urls = extract_article_urls(tree, current_url)
+        next_url = extract_next_document_url(tree, current_url)
 
-        if is_article_page(page_html):
-            text = extract_page_text(page_html, current_url)
+        add_known_urls(known_urls, article_urls)
+
+        if ARTICLE_RE.match(title):
+            text = extract_page_text(tree)
             if text:
-                pages.append(
-                    {
-                        "url": current_url,
-                        "title": article_title(page_html),
-                        "text": text,
-                    }
-                )
+                pages.append({"url": current_url, "title": title, "text": text})
 
-        if "Статья 361." in article_title(page_html):
+        if "Статья 361." in title:
             break
 
-        next_url = extract_next_document_url(page_html, current_url)
         if next_url is None:
             next_url = next_known_article(current_url, known_urls, visited)
         current_url = next_url
