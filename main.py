@@ -12,13 +12,18 @@ def main():
     output_dir.mkdir(exist_ok=True)
 
     pages = crawl_document(SOURCE_URL) # Вызов краулера на исходный url для рекурсивного обхода
-    original_text = "\n".join(page["text"] for page in pages) # Складываем результат работы краулера в единую строку
+    original_text = "\n".join(page["text"] for page in pages) # Складываем результат работы краулера в единую строку 
 
     prepared_text = prepare_text(original_text) # Вызов препаратора на полученную строку для обработки
+    
+    
+    
+    
     subject_index = build_subject_index(original_text, top_n=100) # Строим предметный указатель
 
     (output_dir / "uk_rf_original.txt").write_text(original_text, encoding="utf-8") # Вывод исходного текста в файл
     (output_dir / "uk_rf_prepared.txt").write_text(prepared_text, encoding="utf-8") # Вывод токенизированного и обработанного текста в файл
+    
     write_subject_index_csv(subject_index, output_dir / "uk_rf_subject_index.csv") # Вывод предметного указателя в csv 
     write_subject_index_json(subject_index, output_dir / "uk_rf_subject_index.json") # Предметные указатель в json
 

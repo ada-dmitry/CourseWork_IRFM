@@ -54,7 +54,8 @@ def download_with_urllib(url: str, timeout: float) -> str:
 
 
 def download_html(url: str, retries: int = 3, timeout: float = 30.0) -> str:
-    """Загружает HTML-страницу с retry-логикой.
+    """
+    Загружает HTML-страницу с retry-логикой.
 
     Порядок загрузчиков: curl → urllib (curl обходит часть защит consultant.ru).
     На каждой итерации retry пробует оба; пауза 0.5 с между попытками.

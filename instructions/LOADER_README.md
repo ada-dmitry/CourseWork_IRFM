@@ -89,14 +89,9 @@ download_html(url, retries=3, timeout=30.0)
 
 Логика выбора загрузчика:
 
-- если домен заканчивается на `consultant.ru`, сначала пробуется `curl`, затем `urllib`;
-- для остальных сайтов сначала пробуется `urllib`, затем `curl`.
+- всегда сначала пробуется `curl`, затем `urllib`.
 
-Это задается строкой:
-
-```python
-is_consultant = urlparse(url).netloc.endswith("consultant.ru")
-```
+`curl` надёжнее обходит защиты ConsultantPlus, поэтому стоит первым для любых URL.
 
 ## Повторные попытки
 
