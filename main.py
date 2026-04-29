@@ -22,7 +22,7 @@ def main():
     subject_index = build_subject_index(original_text, top_n=100) # Строим предметный указатель
 
     (output_dir / "uk_rf_original.txt").write_text(original_text, encoding="utf-8") # Вывод исходного текста в файл
-    (output_dir / "uk_rf_prepared.txt").write_text(prepared_text, encoding="utf-8") # Вывод токенизированного и обработанного текста в файл
+    (output_dir / "uk_rf_prepared.txt").write_text(prepared_text, encoding="utf-8") # Вывод обработанного текста в файл
     
     write_subject_index_csv(subject_index, output_dir / "uk_rf_subject_index.csv") # Вывод предметного указателя в csv 
     write_subject_index_json(subject_index, output_dir / "uk_rf_subject_index.json") # Предметные указатель в json
