@@ -27,7 +27,6 @@ def main():
     write_subject_index_csv(subject_index, output_dir / "uk_rf_subject_index.csv") # Вывод предметного указателя в csv 
     write_subject_index_json(subject_index, output_dir / "uk_rf_subject_index.json") # Предметные указатель в json
 
-    print(f"Загружено статей: {len(pages)}")
     print(f"Строк исходного текста: {len(original_text.splitlines())}")
     print(f"Лемм после обработки: {len(prepared_text.split())}")
     print("Топ-10 предметного указателя:")
